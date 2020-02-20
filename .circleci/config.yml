@@ -35,6 +35,9 @@ jobs:
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
           cd tilesets-cli
+          mkvirtualenv -p python3.6 tilesets-cli
+          python3 -V
+          python -V
           pip3 install .
 
       # install tippecanoe
