@@ -22,9 +22,11 @@ jobs:
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
-          sudo apt-get install python3-venv python3-pip -y # for python3 # sudo apt-get install python3-pip -y # should be changed to apt install
+          sudo apt-get install python3-pip -y
+          pip3 install virtualenv virtualenvwrapper
 
-          pip3 install --user -U setuptools
+# for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
+#          pip3 install --user -U setuptools
           
       # install tileset-cli in another shell
       #          git clone git@github.com:mapbox/tilesets-cli.git
