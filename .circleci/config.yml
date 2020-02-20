@@ -20,6 +20,8 @@ jobs:
       # python 3.6 (ubuntu 14.04)
       # https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get
       
+      # don't forget to add -y
+      
       - run: |
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
@@ -27,8 +29,8 @@ jobs:
           sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
           sudo apt-get update -y # python 3.6 (ubuntu 14.04)
           sudo apt-get install python3.6 -y # python 3.6 (ubuntu 14.04)
-          sudo apt-get install curl 
-          wget -O https://bootstrap.pypa.io/get-pip.py
+          sudo apt-get install curl -y 
+          curl -O https://bootstrap.pypa.io/get-pip.py
           sudo python3.6 get-pip.py
           sudo ln -s /usr/bin/python3.6 /usr/bin/python3
 
