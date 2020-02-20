@@ -27,6 +27,7 @@ jobs:
           sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
           sudo apt-get update -y # python 3.6 (ubuntu 14.04)
           sudo apt-get install python3.6 -y # python 3.6 (ubuntu 14.04)
+          sudo apt-get install curl 
           wget -O https://bootstrap.pypa.io/get-pip.py
           sudo python3.6 get-pip.py
           sudo ln -s /usr/bin/python3.6 /usr/bin/python3
