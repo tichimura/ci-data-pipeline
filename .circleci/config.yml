@@ -25,6 +25,7 @@ jobs:
       - run: |
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
+          sudo apt-get install jq -y # jq
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
           sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
           sudo apt-get update -y # python 3.6 (ubuntu 14.04)
