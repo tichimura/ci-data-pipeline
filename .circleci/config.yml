@@ -12,8 +12,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          which python # run the `echo` command
-          which python3 # run the `echo` command
+          python -v
+          python3 -v
              
       # prep
       # for ogr2ogr 
