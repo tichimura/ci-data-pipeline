@@ -13,16 +13,26 @@ jobs:
       - checkout
       - run: echo "hello world" # run the `echo` command
       
+      # prep
       # for ogr2ogr 
+      
+      - run: |
+          sudo apt-get install git
+          sudo apt-get install build-essential libsqlite3-dev zlib1g-dev
 
       # install tileset-cli in another shell
-      - run: |
-      
+      - run: |      
           git clone git@github.com:mapbox/tilesets-cli.git
           cd tilesets-cli
           # mkvirtualenv tilesets-cli
           pip install .
-          
+
+      # install tippecanoe
+      - run: |
+          git clone https://github.com/mapbox/tippecanoe.git
+          cd tippecanoe
+          make -j
+          make install      
       # check whether tilesets are installed or not
       - run: |
           tilesets --help
