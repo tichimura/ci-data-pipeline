@@ -22,7 +22,7 @@ jobs:
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
-          sudo apt-get install python3-pip # should be changed to apt install
+          sudo apt-get install python3-pip -y # should be changed to apt install
           pip3 install --user -U setuptools
           
       # install tileset-cli in another shell
