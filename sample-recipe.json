@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "layers": {
+    "hello_world": {
+      "source": "mapbox://tileset-source/${MBX_ACCOUNT_NAME}/sample-source",
+      "minzoom": 0,
+      "maxzoom": 5
+    }
+  }
+}
