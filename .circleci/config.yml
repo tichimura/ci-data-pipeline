@@ -17,6 +17,7 @@ jobs:
       # for ogr2ogr 
       
       - run: |
+          sudo apt-get update -y
           sudo apt-get install git -y
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y
 
