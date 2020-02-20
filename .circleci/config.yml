@@ -24,9 +24,9 @@ jobs:
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
-          sudo add-apt-repository ppa:deadsnakes/ppa
-          sudo apt-get update
-          sudo apt-get install python3.6          
+          sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
+          sudo apt-get update -y # python 3.6 (ubuntu 14.04)
+          sudo apt-get install python3.6 -y # python 3.6 (ubuntu 14.04)
           sudo pip install -U pip --ignore-installed six
           sudo pip install virtualenv virtualenvwrapper
 
