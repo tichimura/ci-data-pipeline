@@ -29,27 +29,24 @@ jobs:
           sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
           sudo apt-get update -y # python 3.6 (ubuntu 14.04)
           sudo apt-get install python3.6 -y # python 3.6 (ubuntu 14.04)
-          sudo apt-get install curl -y 
+          sudo apt-get install curl -y
+          sudo apt-get install python3.6-venv -y
           curl -O https://bootstrap.pypa.io/get-pip.py
           sudo python3.6 get-pip.py
           sudo ln -sf /usr/bin/python3.6 /usr/bin/python3
           python -V
           python3 -V
 
-# sudo ln -s /usr/bin/python3.6 /usr/bin/python3
-
 # may need virtualenv
 # sudo pip install -U pip --ignore-installed six
-#          sudo pip install virtualenv virtualenvwrapper
+# sudo pip install virtualenv virtualenvwrapper
+# git clone git@github.com:mapbox/tilesets-cli.git
+# source /usr/local/bin/virtualenvwrapper.sh          
+# mkvirtualenv -p python3.6 tilesets-cli
 
 # for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
 #          pip3 install --user -U setuptools
-          
-      # install tileset-cli in another shell
-      #          git clone git@github.com:mapbox/tilesets-cli.git
-      # mkvirtualenv tilesets-cli
-#          source /usr/local/bin/virtualenvwrapper.sh          
-#          mkvirtualenv -p python3.6 tilesets-cli
+
 
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
@@ -66,6 +63,7 @@ jobs:
           make install      
       # check whether tilesets are installed or not
 
+# https://click.palletsprojects.com/en/7.x/python3/#python-3-surrogate-handling
 # This system supports the C.UTF-8 locale which is recommended.
 # You might be able to resolve your issue by exporting the
 # following environment variables:
