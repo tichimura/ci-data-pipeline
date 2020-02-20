@@ -17,11 +17,16 @@ jobs:
              
       # prep
       # for ogr2ogr 
+      # python 3.6 (ubuntu 14.04)
+      # https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get
       
       - run: |
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt-get install python3.6          
           sudo pip install -U pip --ignore-installed six
           sudo pip install virtualenv virtualenvwrapper
 
@@ -36,7 +41,7 @@ jobs:
           git clone https://github.com/mapbox/tilesets-cli.git
           cd tilesets-cli
           source /usr/local/bin/virtualenvwrapper.sh          
-          mkvirtualenv tilesets-cli
+          mkvirtualenv -p python3.6 tilesets-cli
           python3 -V
           python -V
           pip3 install .
