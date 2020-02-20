@@ -11,8 +11,10 @@ jobs:
 
     steps:
       - checkout
-      - run: echo "hello world" # run the `echo` command
-      
+      - run: |
+          which python # run the `echo` command
+          which python3 # run the `echo` command
+             
       # prep
       # for ogr2ogr 
       
