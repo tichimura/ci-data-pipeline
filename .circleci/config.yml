@@ -35,6 +35,7 @@ jobs:
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
           cd tilesets-cli
+          source /usr/local/bin/virtualenvwrapper.sh          
           mkvirtualenv -p python3.6 tilesets-cli
           python3 -V
           python -V
