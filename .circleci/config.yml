@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install git -y # should be changed to apt install
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y # should be changed to apt install
           sudo apt-get install python3-pip -y
-          pip install virtualenv virtualenvwrapper
+          sudo pip install virtualenv virtualenvwrapper
 
 # for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
 #          pip3 install --user -U setuptools
