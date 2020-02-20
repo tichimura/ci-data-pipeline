@@ -32,7 +32,10 @@ jobs:
           sudo apt-get install curl -y 
           curl -O https://bootstrap.pypa.io/get-pip.py
           sudo python3.6 get-pip.py
-          sudo ln -s /usr/bin/python3.6 /usr/bin/python3
+          python -V
+          python3 -V
+
+# sudo ln -s /usr/bin/python3.6 /usr/bin/python3
 
 # may need virtualenv
 # sudo pip install -U pip --ignore-installed six
