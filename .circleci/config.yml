@@ -47,6 +47,7 @@ jobs:
 # for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
 #          pip3 install --user -U setuptools
 
+      # tileset cli
 
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
@@ -55,13 +56,14 @@ jobs:
           python -V
           pip3 install .
 
-      # install tippecanoe
+      # tippecanoe 
       - run: |
           git clone -q https://github.com/mapbox/tippecanoe.git
           cd tippecanoe
           make -j
           make install      
-      # check whether tilesets are installed or not
+
+# check whether tilesets are installed or not
 
 # https://click.palletsprojects.com/en/7.x/python3/#python-3-surrogate-handling
 # This system supports the C.UTF-8 locale which is recommended.
@@ -69,7 +71,23 @@ jobs:
 # following environment variables:
 #    export LC_ALL=C.UTF-8
 #    export LANG=C.UTF-8      
-            
+
+# tippecanoe
+
+      - run: |
+          curl -L -O https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip
+          unzip ne_10m_railroads.zip
+          ogr2ogr -f GeoJSON ne_10m_railroads.geojson ne_10m_railroads.shp
+          tippecanoe-json-tool ne_10m_railroads.geojson > ne_10m_railroads.geojson.ld
+
+# tippecanoe -zg -o ne_10m_railroads.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping ne_10m_railroads.geojson          
+
+
+# aws s3 cp /path/to/file s3://{bucket}/{key} --region us-east-1
+
+# tileset
+# https://docs.mapbox.com/help/tutorials/get-started-tilesets-api-and-cli/#create-a-tileset-source
+
       - run: |
           locale -a
           export LC_ALL=C.UTF-8
@@ -77,5 +95,13 @@ jobs:
           tilesets --help
           tilesets --version
 
+          tilesets add-source ${MBX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
+          tilesets create ${MBX_ACCOUNT_NAME}.hello-world-tiles --recipe recipe.json --name "hello from CI"
+          
+          tilesets update-recipe tichimura.ck5ewuing0f8g2onku11d9c13-7hqcm /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json
+          tilesets add-source tichimura day5-source /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/francespain.json
+          tilesets create day5tileset --recipe /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json --name "Day5 tileset"
+          tilesets publish tichimura.day5tileset
 
+          
       
