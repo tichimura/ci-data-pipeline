@@ -12,4 +12,21 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world" # run the `echo` command
-      - run: which ogr2ogr # check ogr2ogr is there.
+      
+      # for ogr2ogr 
+
+      # install tileset-cli in another shell
+      - run: |
+      
+          git clone git@github.com:mapbox/tilesets-cli.git
+          cd tilesets-cli
+          # mkvirtualenv tilesets-cli
+          pip install .
+          
+      # check whether tilesets are installed or not
+      - run: |
+          tilesets --help
+          tilesets --version
+
+
+      
