@@ -17,8 +17,8 @@ jobs:
       # for ogr2ogr 
       
       - run: |
-          sudo apt-get install git
-          sudo apt-get install build-essential libsqlite3-dev zlib1g-dev
+          sudo apt-get install git -y
+          sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y
 
       # install tileset-cli in another shell
       - run: |      
