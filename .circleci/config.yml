@@ -65,7 +65,17 @@ jobs:
           make -j
           make install      
       # check whether tilesets are installed or not
+
+# This system supports the C.UTF-8 locale which is recommended.
+# You might be able to resolve your issue by exporting the
+# following environment variables:
+#    export LC_ALL=C.UTF-8
+#    export LANG=C.UTF-8      
+            
       - run: |
+          locale -a
+          export LC_ALL=C.UTF-8
+          export LANG=C.UTF-8
           tilesets --help
           tilesets --version
 
