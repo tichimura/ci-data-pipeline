@@ -27,8 +27,13 @@ jobs:
           sudo add-apt-repository ppa:deadsnakes/ppa -y # python 3.6 (ubuntu 14.04)
           sudo apt-get update -y # python 3.6 (ubuntu 14.04)
           sudo apt-get install python3.6 -y # python 3.6 (ubuntu 14.04)
-          sudo pip install -U pip --ignore-installed six
-          sudo pip install virtualenv virtualenvwrapper
+          curl -O https://bootstrap.pypa.io/get-pip.py
+          sudo python3.6 get-pip.py
+          sudo ln -s /usr/bin/python3.6 /usr/bin/python3
+
+# may need virtualenv
+# sudo pip install -U pip --ignore-installed six
+#          sudo pip install virtualenv virtualenvwrapper
 
 # for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
 #          pip3 install --user -U setuptools
@@ -36,12 +41,12 @@ jobs:
       # install tileset-cli in another shell
       #          git clone git@github.com:mapbox/tilesets-cli.git
       # mkvirtualenv tilesets-cli
+#          source /usr/local/bin/virtualenvwrapper.sh          
+#          mkvirtualenv -p python3.6 tilesets-cli
 
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
           cd tilesets-cli
-          source /usr/local/bin/virtualenvwrapper.sh          
-          mkvirtualenv -p python3.6 tilesets-cli
           python3 -V
           python -V
           pip3 install .
