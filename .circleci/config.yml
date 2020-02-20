@@ -20,7 +20,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install git -y
           sudo apt-get install build-essential libsqlite3-dev zlib1g-dev -y
-
+          pip install --user -U setuptools
+          
       # install tileset-cli in another shell
       #          git clone git@github.com:mapbox/tilesets-cli.git
       # mkvirtualenv tilesets-cli
