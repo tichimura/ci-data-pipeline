@@ -12,8 +12,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          python -v
-          python3 -v
+          python -V
+          python3 -V
              
       # prep
       # for ogr2ogr 
