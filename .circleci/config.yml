@@ -15,8 +15,8 @@ jobs:
           python -V
           python3 -V
           
-          sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
-          cat sample-recipe.json
+#          sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
+#          cat sample-recipe.json
              
       # prep
       # for ogr2ogr 
@@ -104,7 +104,7 @@ jobs:
           tilesets --help
           tilesets --version
           
-          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}"/${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
+          sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
@@ -125,7 +125,7 @@ jobs:
           RESULT=0
           echo "Tileset publish has been ongoing..."
           while [ "$RESULT" = "0" ];
-          do RESULT=`cat output.json | jq '.success'`;
+          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
           echo ".";
           sleep 10;
           done
