@@ -97,10 +97,12 @@ jobs:
           export LANG=C.UTF-8
           tilesets --help
           tilesets --version
-
-          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
-          tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
-          tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
+          
+          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}" : \(.*\)/"hostname" : ${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
+          cat sample-recipe.json
+#          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
+#          tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
+#          tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
 
 #          tilesets status username.hello-world-tiles          
 #          tilesets update-recipe tichimura.ck5ewuing0f8g2onku11d9c13-7hqcm /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json
@@ -117,11 +119,12 @@ jobs:
           RESULT=0
           echo "Tileset publish has been ongoing..."
           while [ "$RESULT" = "0" ];
-          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
+          do RESULT=`cat output.json | jq '.success'`;
           echo ".";
           sleep 10;
           done
           echo "Tileset publish has been succeeded."
 
+#          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
 #           do RESULT=`cat output.json | jq '.success'`;
 #          done
