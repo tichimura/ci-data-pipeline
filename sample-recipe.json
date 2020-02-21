@@ -2,7 +2,7 @@
   "version": 1,
   "layers": {
     "hello_world": {
-      "source": "mapbox://tileset-source/${MBX_ACCOUNT_NAME}/sample-source",
+      "source": "mapbox://tileset-source/${MAPBOX_ACCOUNT_NAME}/data-pipeline-demo",
       "minzoom": 0,
       "maxzoom": 5
     }
