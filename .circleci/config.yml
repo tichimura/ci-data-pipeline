@@ -105,8 +105,9 @@ jobs:
           sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           
-          tilesets validate-source ne_10m_railroads.geojson.ld
+          tilesets validate-source ne_10m_railroads.geojson # will exit 1??
           
+          tilesets validate-source ne_10m_railroads.geojson.ld # validate-source, and failed if it wil exit 1.          
           tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
           tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
