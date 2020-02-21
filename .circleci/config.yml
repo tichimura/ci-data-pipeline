@@ -86,8 +86,8 @@ jobs:
 # source_type: shp, json, mbtiles, ... 
 
       - run: |
-          SOURCE_URL=`cat input.json | jq '.source_url'`
-          FILENAME=`cat input.json | jq '.filename'`
+          SOURCE_URL=`cat input.json | jq -r '.source_url'`
+          FILENAME=`cat input.json | jq -r '.filename'`
 
           curl -L -O ${SOURCE_URL}
           unzip ${FILENAME}.zip
@@ -115,7 +115,7 @@ jobs:
           tilesets --help
           tilesets --version
 
-          FILENAME=`cat input.json | jq '.filename'`
+          FILENAME=`cat input.json | jq -r '.filename'`
           sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           
@@ -139,7 +139,7 @@ jobs:
           RESULT=0
           echo "Tileset publish has been ongoing..."
           while [ "$RESULT" = "0" ];
-          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
+          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq -r '.success'`;
           echo ".";
           sleep 10;
           done
