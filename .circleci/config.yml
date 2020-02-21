@@ -80,14 +80,27 @@ jobs:
 #    export LANG=C.UTF-8      
 
 # TIPPERCANOE Operations
+# will add function to read it from json file
+# source_url
+# zip: yes|no
+# source_type: shp, json, mbtiles, ... 
 
       - run: |
-          curl -L -O https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip
-          unzip ne_10m_railroads.zip
-          ogr2ogr -f GeoJSON ne_10m_railroads.geojson ne_10m_railroads.shp
-          tippecanoe-json-tool ne_10m_railroads.geojson > ne_10m_railroads.geojson.ld
+          SOURCE_URL=`cat input.json | jq '.source_url'`
+          FILENAME=`cat input.json | jq '.filename'`
+
+          curl -L -O ${SOURCE_URL}
+          unzip ${FILENAME}.zip
+          ogr2ogr -f GeoJSON ${FILENAME}.geojson ${FILENAME}.shp
+          tippecanoe-json-tool ${FILENAME}.geojson > ${FILENAME}.geojson.ld
 
           # tippecanoe -zg -o ne_10m_railroads.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping ne_10m_railroads.geojson          
+
+#          curl -L -O https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip
+#          unzip ne_10m_railroads.zip
+#          ogr2ogr -f GeoJSON ne_10m_railroads.geojson ne_10m_railroads.shp
+#          tippecanoe-json-tool ne_10m_railroads.geojson > ne_10m_railroads.geojson.ld
+
 
 
 # aws s3 cp /path/to/file s3://{bucket}/{key} --region us-east-1
@@ -101,14 +114,15 @@ jobs:
           export LANG=C.UTF-8
           tilesets --help
           tilesets --version
-          
+
+          FILENAME=`cat input.json | jq '.filename'`
           sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           
-          tilesets validate-source ne_10m_railroads.geojson # will exit 1??
+          tilesets validate-source ${FILENAME}.geojson # will exit 1??
           
-          tilesets validate-source ne_10m_railroads.geojson.ld # validate-source, and failed if it wil exit 1.          
-          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
+          tilesets validate-source ${FILENAME}.geojson.ld # validate-source, and failed if it wil exit 1.          
+          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ${FILENAME}.geojson.ld
           tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
           tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
