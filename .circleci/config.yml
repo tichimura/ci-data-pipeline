@@ -15,7 +15,7 @@ jobs:
           python -V
           python3 -V
           
-          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}"/${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
+          sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
              
       # prep
@@ -26,8 +26,7 @@ jobs:
       # don't forget to add -y
       
       - run: 
-          command: echo "finish"
-          when: on_fail
+          command: exit 1
       
       - run: |
           sudo apt-get update -y      # should be changed to apt update
