@@ -14,6 +14,9 @@ jobs:
       - run: |
           python -V
           python3 -V
+          
+          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}"/${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
+          cat sample-recipe.json
              
       # prep
       # for ogr2ogr 
@@ -21,6 +24,10 @@ jobs:
       # https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get
       
       # don't forget to add -y
+      
+      - run: 
+          command: echo "finish"
+          when: on_fail
       
       - run: |
           sudo apt-get update -y      # should be changed to apt update
@@ -98,11 +105,11 @@ jobs:
           tilesets --help
           tilesets --version
           
-          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}" : \(.*\)/"hostname" : ${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
+          sed -i -e 's/"${MAPBOX_ACCOUNT_NAME}"/${MAPBOX_ACCOUNT_NAME}/g' sample-recipe.json
           cat sample-recipe.json
-#          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
-#          tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
-#          tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
+          tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
+          tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
+          tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
 
 #          tilesets status username.hello-world-tiles          
 #          tilesets update-recipe tichimura.ck5ewuing0f8g2onku11d9c13-7hqcm /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json
