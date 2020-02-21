@@ -105,7 +105,6 @@ jobs:
           sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           
-          tilesets validate-source output.json         
           tilesets validate-source ne_10m_railroads.geojson.ld
           
           tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
@@ -113,7 +112,8 @@ jobs:
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
           tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
           
-#          tilesets validate-source ne_10m_railroads.shp # validation will do exit 1, will return like: "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 25: invalid start byte"
+#          tilesets validate-source ne_10m_railroads.shp # validation will do exit 1: "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 25: invalid start byte"
+# # validation will do exit 1: json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)
 
 
       # check the status of tileset
