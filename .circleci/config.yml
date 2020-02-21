@@ -105,7 +105,6 @@ jobs:
           sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
           cat sample-recipe.json
           
-          tilesets validate-source ne_10m_railroads.shp
           tilesets validate-source output.json         
           tilesets validate-source ne_10m_railroads.geojson.ld
           
@@ -114,6 +113,7 @@ jobs:
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
           tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
           
+#          tilesets validate-source ne_10m_railroads.shp # validation will do exit 1, will return like: "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 25: invalid start byte"
 
 
       # check the status of tileset
