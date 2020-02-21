@@ -14,20 +14,19 @@ jobs:
       - run: |
           python -V
           python3 -V
-          
-#          sed -i -e 's/${MAPBOX_ACCOUNT_NAME}/'$MAPBOX_ACCOUNT_NAME'/g' sample-recipe.json
-#          cat sample-recipe.json
-             
+                       
       # prep
       # for ogr2ogr 
       # python 3.6 (ubuntu 14.04)
       # https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get
       
-      # don't forget to add -y
       
-      - run: 
-          command: exit 1
-      
+#      - run: 
+#          command: exit 1
+
+# TOOLS PREP:
+# don't forget to add -y
+
       - run: |
           sudo apt-get update -y      # should be changed to apt update
           sudo apt-get install git -y # should be changed to apt install
@@ -54,7 +53,7 @@ jobs:
 # for ubuntu 14.04(trusty), python3-venv is not supported ( should be 15 or later)
 #          pip3 install --user -U setuptools
 
-      # tileset cli
+# TILESET CLI Setup
 
       - run: |      
           git clone https://github.com/mapbox/tilesets-cli.git
@@ -63,7 +62,8 @@ jobs:
           python -V
           pip3 install .
 
-      # tippecanoe 
+# TIPPERCANOE CLI Setup
+
       - run: |
           git clone -q https://github.com/mapbox/tippecanoe.git
           cd tippecanoe
@@ -79,22 +79,20 @@ jobs:
 #    export LC_ALL=C.UTF-8
 #    export LANG=C.UTF-8      
 
-# tippecanoe
+# TIPPERCANOE Operations
 
       - run: |
           curl -L -O https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_railroads.zip
           unzip ne_10m_railroads.zip
           ogr2ogr -f GeoJSON ne_10m_railroads.geojson ne_10m_railroads.shp
           tippecanoe-json-tool ne_10m_railroads.geojson > ne_10m_railroads.geojson.ld
-#          file ne_10m_railroads.geojson.ld
-#          ls -al ne_10m_railroads.geojson.ld
 
-# tippecanoe -zg -o ne_10m_railroads.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping ne_10m_railroads.geojson          
+          # tippecanoe -zg -o ne_10m_railroads.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping ne_10m_railroads.geojson          
 
 
 # aws s3 cp /path/to/file s3://{bucket}/{key} --region us-east-1
 
-# tileset
+# TILESET
 # https://docs.mapbox.com/help/tutorials/get-started-tilesets-api-and-cli/#create-a-tileset-source
 
       - run: |
@@ -109,12 +107,6 @@ jobs:
           tilesets add-source ${MAPBOX_ACCOUNT_NAME} data-pipeline-demo ne_10m_railroads.geojson.ld
           tilesets create ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles --recipe sample-recipe.json --name "hello from CI"
           tilesets publish ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles
-
-#          tilesets status username.hello-world-tiles          
-#          tilesets update-recipe tichimura.ck5ewuing0f8g2onku11d9c13-7hqcm /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json
-#          tilesets add-source tichimura day5-source /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/francespain.json
-#          tilesets create day5tileset --recipe /Users/tomohiroichimura/git/Mapbox/SA/tech-workshop/day5/recipe.json --name "Day5 tileset"
-#          tilesets publish tichimura.day5tileset
 
 
       # check the status of tileset
@@ -131,6 +123,7 @@ jobs:
           done
           echo "Tileset publish has been succeeded."
 
-#          do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
-#           do RESULT=`cat output.json | jq '.success'`;
+# for debug
+# do RESULT=`tilesets status ${MAPBOX_ACCOUNT_NAME}.hello-world-tiles | jq '.success'`;
+#          do RESULT=`cat output.json | jq '.success'`;
 #          done
